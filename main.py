@@ -3,6 +3,22 @@ import random
 print("\n W python potęga to ** proszę tak wpisywać\n")
 zad = int
 
+
+def odwrotnosc(b, n):
+    x = 0
+    xx = 1
+    while n != 0:
+        i = b // n
+        b, n = n, b - i * n
+        xx, x = x, xx - i * x
+
+    return xx
+
+
+def delta(y1, y2, x1, x2, p):
+     return (y1 - y2 % odwrotnosc((x1 - x2), p))
+
+
 while True:
     zad = int(input("wpisz numer zadania: "))
 
@@ -21,13 +37,14 @@ while True:
         p = eval(input("wpisz p: "))
         a = eval(input("wpisz A: "))
         b = eval(input("wpisz B: "))
+
         def kat2(p):
-            x = random.randint(1, p - 1) #dajemy random x
-            k = (x**3 + a*x + b)  #liczymy y
-            if mod(k, (p-1)//2, p):         #sprawdzamy czy się nadaje
-                y = mod(k, (p-1)//4, p)        #jeśli tak to mod
+            x = random.randint(1, p - 1)        #dajemy random x
+            k = (x**3 + a*x + b)                #liczymy y
+            if mod(k, (p-1)//2, p):             #sprawdzamy czy się nadaje
+                y = mod(k, (p-1)//4, p)         #jeśli tak to mod
                 return("x= ", x,"y= ", y)
-            else: return kat2(p)        #jeśli nie to losujemy znowu
+            else: return kat2(p)                #jeśli nie to losujemy znowu
         print(kat2(p))
 
 
@@ -43,9 +60,6 @@ while True:
                 be = (be * be) % m
             return r
 
-
-
-
     if zad == 3:
         p = eval(input("wpisz p: "))
         a = eval(input("wpisz A: "))
@@ -59,16 +73,15 @@ while True:
                 return("TRUE")
 
             else: return("FALSE")
-        print(czy_punkt_nalezy(p,a,b,x,y))
-
+        print(czy_punkt_nalezy(p, a, b, x, y))
 
     if zad == 4:
         p = eval(input("wpisz p: "))
         x = eval(input("wpisz x: "))
         y = eval(input("wpisz y: "))
-        print('x= ', x, 'y= ', p-y)
+        print('x= ', x, 'y= ', p - y)
 
-    if zad == 5: #nie ma przykładów :(
+    if zad == 5:                            #nie ma przykładów :( zakładam, że nie będzie nieskończoności
         p = eval(input("wpisz p: "))
         a = eval(input("wpisz A: "))
         b = eval(input("wpisz B: "))
@@ -76,10 +89,26 @@ while True:
         y1 = eval(input("wpisz y1: "))
         x2 = eval(input("wpisz x2: "))
         y2 = eval(input("wpisz y2: "))
-        if x1 == x2 and y1 == y2:                   #nie ma przykładów więc nie wiem czy działą algorytm jest stąd https://link.springer.com/content/pdf/10.1007%2F978-0-387-35413-2_12.pdf
-            s = ((3 * x1 + a) % p) / ((2*y1) % p)
+        if x1 == x2 and y1 == y2:
+            o = odwrotnosc(2*y1, p)
+            s = (3 * x1 * x1 + a) * o
         else:
-            s = ((y1 - y2) % p) / ((x1 - x2) % p)
-        x = (s*s-x1-x2) % p
-        y = (-y1 + s*(x1-x2)) % p
+            s = delta(y1, y2, x1, x2, p)
+        x = s * s - x1 - x2 % p
+        y = s * (x1 - x) - y1 % p
+
+
         print('x= ', x, 'y= ', y)
+
+
+
+
+
+
+
+
+
+
+
+
+
