@@ -6,7 +6,7 @@ print("\n W python potęga to ** proszę tak wpisywać\n")
 zad = int
 
 while True:
-    zad = int(input("wpisz numer zadania: (1 = suma, 2 = xtime, 3 = iloczyn, 4 = odwrotnosc)"))
+    zad = int(input("wpisz numer zadania (1 = suma, 2 = xtime, 3 = iloczyn, 4 = odwrotnosc): "))
 
 
     def suma(a, b):
